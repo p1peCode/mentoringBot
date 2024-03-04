@@ -28,11 +28,8 @@ public class Report {
         return date;
     }
 
-    public Integer getHours() {
-        return hours;
-    }
-
-    public String getTitle() {
-        return title;
+    @Override
+    public String toString() {
+        return studentUserName + "\n" + date + "\n" + hours + "\n" + title + "\n";
     }
 }

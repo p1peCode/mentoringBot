@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,20 +32,12 @@ public class Main {
     }
 
     static String reportHistory(List<Report> reports, String studentUserName, int count) {
-        List<Report> list = reports.stream()
+        return reports.stream()
                 .filter(report -> studentUserName.equals(report.getStudentUserName()))
                 .sorted(Comparator.comparing(Report::getDate).reversed())
                 .limit(count)
-                .sorted(Comparator.comparing(Report::getDate)).toList();
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Report report : list) {
-            stringBuilder.append(report.getStudentUserName()).append("\n")
-                    .append(report.getDate()).append("\n")
-                    .append(report.getHours()).append("\n")
-                    .append(report.getTitle()).append("\n")
-                    .append("-----------------\n");
-        }
-        return stringBuilder.toString();
+                .sorted(Comparator.comparing(Report::getDate))
+                .map(Report::toString)
+                .collect(Collectors.joining("-----------------\n"));
     }
 }
